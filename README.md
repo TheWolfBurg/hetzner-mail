@@ -231,11 +231,16 @@ echo "Redis wiederhergestellt!"
 ```bash
 cd /srv/backups/data/${BACKUP_DATE}
 
-# Backup entpacken und wiederherstellen
-tar -xzf vmail.tar.gz -C /srv/mailcow/data/
+# Backup entpacken und wiederherstellen (in Docker Volume)
+VMAIL_VOLUME=$(docker volume inspect mailcowdockerized_vmail-vol-1 --format '{{.Mountpoint}}')
+tar -xzf vmail.tar.gz -C ${VMAIL_VOLUME}/
 
 # Berechtigungen korrigieren
-chown -R 5000:5000 /srv/mailcow/data/vmail/
+chown -R 5000:5000 ${VMAIL_VOLUME}/
+
+# Dovecot neu starten um Änderungen zu laden
+cd /srv/mailcow
+docker compose restart dovecot-mailcow
 
 echo "E-Mail-Daten wiederhergestellt!"
 ```
