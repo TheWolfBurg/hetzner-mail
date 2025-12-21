@@ -39,10 +39,9 @@ docker compose exec -T redis-mailcow redis-cli -a $(grep REDISPASS mailcow.conf 
 docker cp mailcowdockerized-redis-mailcow-1:/data/dump.rdb ${BACKUP_DIR}/${TIMESTAMP}/redis-dump.rdb
 gzip ${BACKUP_DIR}/${TIMESTAMP}/redis-dump.rdb
 
-# Backup mail data (vmail) - from Docker volume
+# Backup mail data (vmail)
 echo "Backing up mail data (vmail)..."
-VMAIL_VOLUME=$(docker volume inspect mailcowdockerized_vmail-vol-1 --format '{{.Mountpoint}}' 2>/dev/null || echo "/var/lib/docker/volumes/mailcowdockerized_vmail-vol-1/_data")
-tar -czf ${BACKUP_DIR}/${TIMESTAMP}/vmail.tar.gz -C ${VMAIL_VOLUME} . 2>/dev/null || echo "Warning: Some vmail files may have been skipped"
+tar -czf ${BACKUP_DIR}/${TIMESTAMP}/vmail.tar.gz -C /srv/mailcow/data/vmail . 2>/dev/null || echo "Warning: Some vmail files may have been skipped"
 
 # Backup DKIM keys (if they exist)
 echo "Backing up DKIM keys..."

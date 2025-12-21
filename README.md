@@ -124,6 +124,7 @@ rsync -avz root@BACKUP_SERVER:/backup/mail.clocklight.de/latest/ /srv/backups/
 #### 2.2 Verzeichnisstruktur erstellen
 ```bash
 mkdir -p /srv/{mailcow,caddy,netdata}
+mkdir -p /srv/mailcow/data/vmail
 ```
 
 #### 2.3 mailcow wiederherstellen
@@ -231,12 +232,11 @@ echo "Redis wiederhergestellt!"
 ```bash
 cd /srv/backups/data/${BACKUP_DATE}
 
-# Backup entpacken und wiederherstellen (in Docker Volume)
-VMAIL_VOLUME=$(docker volume inspect mailcowdockerized_vmail-vol-1 --format '{{.Mountpoint}}')
-tar -xzf vmail.tar.gz -C ${VMAIL_VOLUME}/
+# Backup entpacken und wiederherstellen
+tar -xzf vmail.tar.gz -C /srv/mailcow/data/vmail/
 
 # Berechtigungen korrigieren
-chown -R 5000:5000 ${VMAIL_VOLUME}/
+chown -R 5000:5000 /srv/mailcow/data/vmail/
 
 # Dovecot neu starten um Änderungen zu laden
 cd /srv/mailcow
