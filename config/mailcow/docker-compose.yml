@@ -267,7 +267,7 @@ services:
         - ./data/assets/ssl:/etc/ssl/mail/:ro,z
         - ./data/conf/sogo/:/etc/sogo/:z
         - ./data/conf/phpfpm/sogo-sso/:/etc/phpfpm/:z
-        - vmail-vol-1:/var/vmail
+        - ./data/vmail:/var/vmail
         - vmail-index-vol-1:/var/vmail_index
         - crypt-vol-1:/mail_crypt/
         - ./data/conf/rspamd/custom/:/etc/rspamd/custom:z
@@ -669,7 +669,7 @@ networks:
         - subnet: ${IPV6_NETWORK:-fd4d:6169:6c63:6f77::/64}
 
 volumes:
-  vmail-vol-1:
+  # vmail-vol-1:  # Now using bind mount at ./data/vmail
   vmail-index-vol-1:
   mysql-vol-1:
   mysql-socket-vol-1:

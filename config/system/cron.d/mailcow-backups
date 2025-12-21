@@ -1,0 +1,6 @@
+# mailcow Backup Cronjobs
+# Configuration backup runs daily at 02:00
+0 2 * * * root /srv/backups/scripts/backup-config.sh >> /var/log/backup-config.log 2>&1
+
+# Data backup runs daily at 03:00
+0 3 * * * root /srv/backups/scripts/backup-data.sh >> /var/log/backup-data.log 2>&1
