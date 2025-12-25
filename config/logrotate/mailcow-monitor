@@ -1,0 +1,26 @@
+/var/log/mailcow-monitor.log {
+    weekly
+    rotate 4
+    compress
+    missingok
+    notifempty
+    create 0644 root root
+}
+
+/var/log/mailcow-monitor-errors.log {
+    weekly
+    rotate 8
+    compress
+    missingok
+    notifempty
+    create 0644 root root
+}
+
+/var/log/mailcow-critical-alerts.log {
+    weekly
+    rotate 12
+    compress
+    missingok
+    notifempty
+    create 0644 root root
+}
