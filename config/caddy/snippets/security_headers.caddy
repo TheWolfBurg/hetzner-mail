@@ -1,0 +1,22 @@
+header {
+    # HSTS - Force HTTPS for 1 year
+    Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # Prevent clickjacking
+    X-Frame-Options "SAMEORIGIN"
+
+    # Prevent MIME sniffing
+    X-Content-Type-Options "nosniff"
+
+    # XSS Protection
+    X-XSS-Protection "1; mode=block"
+
+    # Referrer Policy
+    Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Permissions Policy (restrict access to browser features)
+    Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+    # Remove Server header
+    -Server
+}

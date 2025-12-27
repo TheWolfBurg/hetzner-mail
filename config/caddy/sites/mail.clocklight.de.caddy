@@ -5,6 +5,7 @@ mail.clocklight.de {
             tls_insecure_skip_verify
         }
     }
+    import ../snippets/security_headers.caddy
 
     log {
         output file /var/log/caddy/mail.clocklight.de.log

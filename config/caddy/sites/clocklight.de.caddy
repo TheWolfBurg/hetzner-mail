@@ -2,6 +2,7 @@ clocklight.de, www.clocklight.de {
     root * /var/www/clocklight.de
     file_server
     import ../snippets/compression.caddy
+    import ../snippets/security_headers.caddy
 
     log {
         output file /var/log/caddy/clocklight.de.log
